@@ -2,8 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
+import userRegistration from "../hooks/userRegistration";
 
 const Register = () => {
+  const register = userRegistration();
   const initialValues = {
     displayName: "",
     email: "",
@@ -23,7 +25,8 @@ const Register = () => {
     photo: yup.mixed().required(),
   });
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
+    await register(values.email, values.password, values.photo, values.displayName);
     console.log(values);
   };
 
@@ -62,7 +65,7 @@ const Register = () => {
                     Login
                   </Link>
                 </span>
-                <button disabled={!props.isValid || props.isSubmitting} className={`${props.isSubmitting || !props.isValid ? "bg-blue-400" : "bg-blue-700"} btn`}>
+                <button type="submit" disabled={!props.isValid || props.isSubmitting} className={`${props.isSubmitting || !props.isValid ? "bg-blue-400" : "bg-blue-700"} btn`}>
                   {props.isSubmitting ? "Please Wait" : "Register"}
                 </button>
               </Form>

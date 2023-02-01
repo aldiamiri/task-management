@@ -2,8 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
+import userLogin from "../hooks/userLogin";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
+  const login = userLogin();
   const initialValues = {
     email: "",
     password: "",
@@ -14,11 +18,14 @@ const Login = () => {
     password: yup.string().required().trim().min(6),
   });
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async (values) => {
+    await login(values.email, values.password);
   };
   return (
     <div className="grid place-items-center mt-32 w-full">
+      {/* Notif Login */}
+      <ToastContainer position="top-center" autoClose={1000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover={false} theme="dark" />
+      {/* End Notif */}
       <div className="p-5 border-[1px] border-gray-400 rounded-md w-4/12">
         <h1 className="font-bold text-3xl text-center text-blue-700">Login</h1>
         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>

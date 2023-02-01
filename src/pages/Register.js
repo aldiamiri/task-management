@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import userRegistration from "../hooks/userRegistration";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const register = userRegistration();
@@ -32,6 +34,9 @@ const Register = () => {
 
   return (
     <div className="grid place-items-center mt-10 w-full">
+      {/* Notif Registration */}
+      <ToastContainer position="top-center" autoClose={2000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover={false} theme="dark" />
+      {/* End Notif */}
       <div className="p-5 border-[1px] border-gray-400 rounded-md w-4/12">
         <h1 className="font-bold text-3xl text-center text-blue-700">Register</h1>
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>

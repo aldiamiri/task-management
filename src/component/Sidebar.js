@@ -1,31 +1,9 @@
 import React from "react";
-import { HomeIcon, ClipboardDocumentCheckIcon, UserIcon, PlusIcon, ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { UseLogout } from "../features/userSlice";
-
-const menus = [
-  {
-    name: "Home",
-    to: "/",
-    icon: <HomeIcon width="20" />,
-  },
-  {
-    name: "My Tasks",
-    to: "/my-task",
-    icon: <ClipboardDocumentCheckIcon width="20" />,
-  },
-  {
-    name: "Add Tasks",
-    to: "/add-task",
-    icon: <PlusIcon width="20" />,
-  },
-  {
-    name: "Users",
-    to: "/users",
-    icon: <UserIcon width="20" />,
-  },
-];
+import { menus } from "../utility/constant";
 
 const Sidebar = () => {
   const dispatch = useDispatch();

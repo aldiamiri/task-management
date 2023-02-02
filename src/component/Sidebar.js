@@ -1,6 +1,8 @@
 import React from "react";
 import { HomeIcon, ClipboardDocumentCheckIcon, UserIcon, PlusIcon, ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { UseLogout } from "../features/userSlice";
 
 const menus = [
   {
@@ -26,6 +28,7 @@ const menus = [
 ];
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
   return (
     <aside className="basis-2/12 sidebar">
       <div>
@@ -39,7 +42,7 @@ const Sidebar = () => {
             <h1>{menu.name}</h1>
           </NavLink>
         ))}
-        <div className="navlink text-gray-500">
+        <div onClick={() => dispatch(UseLogout())} className="navlink text-gray-500">
           <span className="mr-4 inline-block">
             <ArrowLeftOnRectangleIcon width="20" />
           </span>

@@ -4,7 +4,7 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { db } from "../firebase/config";
 import useCompare from "../hooks/useCompare";
 import useGetTaskById from "../hooks/useGetTaskById";
@@ -12,7 +12,7 @@ import useGetTaskById from "../hooks/useGetTaskById";
 const DetailTask = () => {
   const auth = useSelector((state) => state.user);
   const navigate = useNavigate();
-  const { state: id } = useLocation();
+  const { id } = useParams();
   const { task } = useGetTaskById(id);
   const { isCompleted, isInWork, isDueDate } = useCompare();
   const isMyTask = task?.users.find((user) => user.id === auth.userId);

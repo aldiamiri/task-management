@@ -2,7 +2,6 @@ import { CalendarIcon, ChatBubbleBottomCenterTextIcon, CheckIcon, ExclamationTri
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import useCompare from "../hooks/useCompare";
-import useGetTask from "../hooks/useGetTask";
 import LabelCategory from "./LabelCategory";
 
 const CardTask = ({ task }) => {

@@ -1,11 +1,20 @@
-import { CalendarIcon, ChatBubbleBottomCenterTextIcon, ExclamationTriangleIcon } from "@heroicons/react/24/solid";
+import { CalendarIcon, ChatBubbleBottomCenterTextIcon, CheckIcon, ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import useCompare from "../hooks/useCompare";
+import useGetTask from "../hooks/useGetTask";
 import LabelCategory from "./LabelCategory";
 
 const CardTask = ({ task }) => {
+  const { isInWork, isCompleted, isDueDate } = useCompare();
+  const navigate = useNavigate();
+
+  const navigateToDetail = () => {
+    navigate(`/detail/${task.id}`, { state: task.id });
+  };
   return (
     <div className="border-[1px] rounded-md">
-      <div className="p-4">
+      <div onClick={navigateToDetail} className="p-4 cursor-pointer">
         <h1 className="font-medium text-lg capitalize mb-2">{task.title}</h1>
         <p className="text-sm text-gray-500 text-justify">{task.description}</p>
         <div className="flex justify-between pt-5 items-center">
@@ -24,10 +33,24 @@ const CardTask = ({ task }) => {
           <ChatBubbleBottomCenterTextIcon width="20" className="text-gray-400" />
           <span className="block text-sm mt-[-3px] ml-1 text-gray-400">{task.comment.length}</span>
         </div>
-        <div className="flex items-start">
-          <CalendarIcon width="20" className="text-gray-400" />
-          <span className="block text-sm ml-1 text-gray-400">{task.duedate}</span>
-        </div>
+        {isInWork(task) && (
+          <div className="flex items-start">
+            <CalendarIcon width="20" className="text-gray-400" />
+            <span className="block text-sm ml-1 text-gray-400">{new Date(task.duedate).toDateString()}</span>
+          </div>
+        )}
+        {isCompleted(task) && (
+          <div className="flex items-start">
+            <CheckIcon width="20" className="text-green-400" />
+            <span className="block text-sm ml-1 text-green-400">Done</span>
+          </div>
+        )}
+        {isDueDate(task) && (
+          <div className="flex items-start">
+            <ExclamationTriangleIcon width="20" className="text-red-400" />
+            <span className="block text-sm ml-1 text-red-400">Due Date</span>
+          </div>
+        )}
       </footer>
     </div>
   );
